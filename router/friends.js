@@ -56,11 +56,11 @@ router.put("/:email", function(req, res) {
         }
         // Add similarly for firstName
         if (firstName) {
-            friends["firstName"] = firstName;
+            friend["firstName"] = firstName;
         }
         // Add similarly for lastName
         if (lastName) {
-            friends["lastName"] = lastName;
+            friend["lastName"] = lastName;
         }
 
         friends[email] = friend;  // Update friend details in 'friends' object
@@ -74,7 +74,9 @@ router.put("/:email", function(req, res) {
 // DELETE request: Delete a friend by email id
 router.delete("/:email", (req, res) => {
   // Update the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
+  let email = req.params.email;
+  delete friends[email];
+  res.send(`The friends list after operation: ${JSON.stringify(friends, null, 4)}`);//This line is to be replaced with actual return value
 });
 
 module.exports=router;
