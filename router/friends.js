@@ -38,12 +38,38 @@ router.post("/",(req,res)=>{
 });
 
 
-// PUT request: Update the details of a friend with email id
-router.put("/:email", (req, res) => {
-  // Update the code here
-  res.send("Yet to be implemented")//This line is to be replaced with actual return value
-});
+router.put("/:email", function(req, res) {
+    // Extract email parameter from request URL
+    const email = req.params.email;
+    let friend = friends[email];  // Retrieve friend object associated with email
 
+    if (friend) {  // Check if friend exists
+        let DOB = req.body.DOB;
+        // Add similarly for firstName
+        let firstName = req.body.firstName;
+        // Add similarly for lastName
+        let lastName = req.body.lastName;
+
+        // Update DOB if provided in request body
+        if (DOB) {
+            friend["DOB"] = DOB;
+        }
+        // Add similarly for firstName
+        if (firstName) {
+            friends["firstName"] = firstName;
+        }
+        // Add similarly for lastName
+        if (lastName) {
+            friends["lastName"] = lastName;
+        }
+
+        friends[email] = friend;  // Update friend details in 'friends' object
+        res.send(`Friend with the email ${email} updated.`);
+    } else {
+        // Respond if friend with specified email is not found
+        res.send("Unable to find friend!");
+    }
+});
 
 // DELETE request: Delete a friend by email id
 router.delete("/:email", (req, res) => {
